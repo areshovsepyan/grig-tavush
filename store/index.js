@@ -1,72 +1,30 @@
 export const state = () => ({
-  data: {
-    posts: [
-      {
-        id: 1,
-        thumbnail: 'haghartsin-monastery',
-        title: 'Հաղարծին վանք',
-        previewText:
-          'Ըստ ավանդույթի վանքի բացման և օծման արարողության ժամանակ մի արծիվ էր ճախրում գլխավոր...'
-      },
-      {
-        id: 2,
-        thumbnail: 'makaravank',
-        title: 'Մակարավանք',
-        previewText:
-          'Մակարավանք, Ագռավավանք, 13-րդ դարի հայկական վանական համալիր Հայաստանի Տավուշի մարզում, Աչաջուր գյուղից 3 կմ հարավ-արևմուտք, Պայտաթափ լեռան լանջին։'
-      },
-      {
-        id: 3,
-        thumbnail: 'gosh-village-nor-ghetik',
-        title: 'Գոշավանք',
-        previewText:
-          'Գոշավանք, Նոր Գետիկ վանք, հայկական կրոնական կառույց Հայաստանի Տավուշի մարզի Գոշ գյուղի եզրին, Գետիկ գետի աջ ափին։ Միջնադարյան կրոնական, կրթական և մշակութային խոշոր կենտրոններից.'
-      },
-      {
-        id: 4,
-        thumbnail: 'nor-varagavank-monastery',
-        title: 'Նոր Վարագավանք',
-        previewText:
-          'Նոր Վարագավանք, հայկական վանական համալիր Տավուշի մարզում, Վարագավան գյուղից 3.5 կմ հարավ-արևմուտք, բարձր ժայռի վրա, անտառապատ լեռներով շրջապատված։s'
-      },
-      {
-        id: 5,
-        thumbnail: 'srvex',
-        title: 'Սրվեղի վանք',
-        previewText:
-          'Սրվեղի վանք կամ Սրվեղ վանք, հայկական միջնադարյան կիսավեր վանական համալիր։'
-      },
-      {
-        id: 6,
-        thumbnail: 'lake-parz',
-        title: 'Պարզ լիճ',
-        previewText:
-          'Հոսք ունեցող լիճ է։ Սնվում է աղբյուրներից։ Ունի 300մ երկարություն և 100մ լայնություն։ Միջին խորությունը 3 մ է, առավելագույնը 10 մ։'
-      },
-      {
-        id: 7,
-        thumbnail: 'gosh-lake',
-        title: 'Գոշի լիճ',
-        previewText:
-          'Գոշ, լեռնային անտառապատ լիճ Հայաստանի Տավուշի մարզում՝ Գոշ գյուղից 2.2 կմ հարավ-արևմուտք։'
-      },
-      {
-        id: 8,
-        thumbnail: 'kiranc-vank',
-        title: 'Կիրանց վանք',
-        previewText:
-          'Կիրանց վանք, Հայ առաքելական եկեղեցու վանքային համալիր Հայաստանի Տավուշի մարզի Կիրանց գյուղից մոտ 12 կմ արևմուտք, Կիրանց-ջուր վտակի ձախ ափին ընկած հարթավայրում։'
-      }
-    ]
-  }
+  data: {}
 })
 
-export const mutations = {}
-
-export const actions = {}
-
 export const getters = {
-  getPostsData(state) {
+  getLandingData(state) {
     return state.data
+  }
+}
+
+export const mutations = {
+  SET_LANDING_DATA(state, data) {
+    state.data = data
+  }
+}
+
+export const actions = {
+  async fetchLandingData({ state, commit }) {
+    try {
+      const response = await fetch(
+        'https://tavush-chobanyan-default-rtdb.firebaseio.com/tavush.json'
+      )
+      const data = await response.json()
+
+      commit('SET_LANDING_DATA', data)
+    } catch (e) {
+      //
+    }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <section class="post-list">
     <PostPreview
-      v-for="post in getPostsData.posts"
+      v-for="post in getLandingData.posts"
       :key="post.id"
       :id="post.id"
       :thumbnail="post.thumbnail"
@@ -20,7 +20,7 @@ export default {
     PostPreview
   },
   computed: {
-    ...mapGetters(['getPostsData'])
+    ...mapGetters(['getLandingData'])
   }
 }
 </script>
