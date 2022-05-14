@@ -1,5 +1,5 @@
 <template>
-  <div class="post-preview">
+  <div :style="borderColor()" class="post-preview">
     <nuxt-link
       @mouseover.native="mouseOver"
       @mouseleave.native="mouseLeave"
@@ -64,6 +64,13 @@ export default {
       } else {
         return 'color:transparent'
       }
+    },
+    borderColor() {
+      if (this.showPreview) {
+        return 'borderColor:#00dc81'
+      } else {
+        return 'borderColor: #ccc'
+      }
     }
   }
 }
@@ -92,7 +99,7 @@ export default {
   text-transform: uppercase;
   bottom: 0;
   left: 0;
-  background-color: #011e26;
+  background-color: #032a35;
   display: inline-block;
   width: 100%;
   text-align: center;

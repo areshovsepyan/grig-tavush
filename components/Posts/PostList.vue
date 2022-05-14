@@ -1,5 +1,6 @@
 <template>
   <section class="post-list">
+    <PostAdd @toggle="$emit('addNewPost')" />
     <PostPreview
       v-for="post in getLandingPageData.posts"
       :key="post.id"
@@ -13,11 +14,14 @@
 
 <script>
 import PostPreview from '@/components/Posts/PostPreview.vue'
+import PostAdd from './PostAdd.vue'
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'PostList',
   components: {
-    PostPreview
+    PostPreview,
+    PostAdd
   },
   computed: {
     ...mapGetters(['getLandingPageData'])

@@ -47,6 +47,7 @@ import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import '~/assets/styles/vue-slick-carousel.css'
 export default {
+  name: 'SinglePost',
   data() {
     return {
       data: {

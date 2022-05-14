@@ -13,7 +13,6 @@
       </svg>
     </button>
     <input
-      v-model="inputValue"
       type="text"
       class="input-search"
       placeholder=" Որոնել..."
