@@ -81,6 +81,6 @@ export default {
 
 .nav-item a:hover,
 .nav-item a:active {
-  color: red;
+  color: rgb(0 220 129);
 }
 </style>

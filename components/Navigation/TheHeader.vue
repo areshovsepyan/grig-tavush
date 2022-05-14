@@ -122,7 +122,7 @@ export default {
 .nav-item a:hover,
 .nav-item a:active,
 .nav-item a.nuxt-link-active {
-  color: red;
+  color: rgb(0 220 129);
 }
 .search-button {
   background-color: transparent;
