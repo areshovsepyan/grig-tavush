@@ -2,8 +2,8 @@
   <div class="header-container">
     <header class="the-header">
       <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
-      <div class="logo">
-        <img class="logo-icon" src="/favicon.ico" alt="">
+      <div @click="toTop" class="logo">
+        <img class="logo-icon" src="/favicon.ico" alt="" />
         <nuxt-link to="/">Գեղեցիկ Տավուշ</nuxt-link>
       </div>
       <div class="spacer"></div>
@@ -16,22 +16,7 @@
             <nuxt-link to="/about">Մեր Մասին</nuxt-link>
           </li>
           <li class="nav-item">
-            <button class="search-button">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z"
-                  stroke="#91adad"
-                  fill="none"
-                  fill-rule="evenodd"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </button>
+            <SearchBar />
           </li>
         </ul>
       </div>
@@ -41,11 +26,22 @@
 
 <script>
 import TheSideNavToggle from '@/components/Navigation/TheSideNavToggle'
+import SearchBar from '@/components/Shared/SearchBar.vue'
 
 export default {
   name: 'TheHeader',
   components: {
-    TheSideNavToggle
+    TheSideNavToggle,
+    SearchBar
+  },
+  methods: {
+    toTop() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+    }
   }
 }
 </script>
@@ -66,6 +62,11 @@ export default {
   z-index: 100;
   box-sizing: border-box;
   padding: 0 20px;
+  transition: all 0.2s;
+}
+.the-header:hover,
+.the-header:active {
+  background-color: rgb(0, 33, 41);
 }
 
 .logo {
@@ -79,6 +80,7 @@ export default {
 .logo-icon {
   width: 40px;
   margin-right: 8px;
+  cursor: pointer;
 }
 
 .logo a {
@@ -96,7 +98,15 @@ export default {
   display: none;
 }
 
-@media (min-width: 768px) {
+.search-input {
+  width: 140px;
+  height: 25px;
+  border-radius: 9px;
+  background-color: #032a35;
+  border: 1px solid #ccc;
+}
+
+@media (min-width: 790px) {
   .navigation-items {
     display: block;
   }
@@ -110,6 +120,9 @@ export default {
 }
 
 .nav-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 10px;
 }
 

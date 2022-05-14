@@ -15,4 +15,8 @@
   margin-bottom: 2rem;
   height: 5rem;
 }
+span,
+p {
+  color: #00dc81;
+}
 </style>

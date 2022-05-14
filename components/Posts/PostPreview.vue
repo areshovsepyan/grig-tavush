@@ -1,14 +1,19 @@
 <template>
   <div class="post-preview">
-    <nuxt-link :to="`/posts/${id}`"></nuxt-link>
+    <nuxt-link
+      @mouseover.native="mouseOver"
+      @mouseleave.native="mouseLeave"
+      :to="`/posts/${id}`"
+    ></nuxt-link>
     <img
       class="post-image"
+      :style="brightnessImg()"
       :src="require(`~/assets/images/posts/${thumbnail}.jpeg`)"
     />
 
     <h1 class="post-title">{{ title }}</h1>
-    <div class="post-content">
-      <p>{{ previewText }}</p>
+    <div v-show="showPreview" class="post-content">
+      <p :style="colorText()" class="preview-text">{{ previewText }}</p>
     </div>
   </div>
 </template>
@@ -33,6 +38,33 @@ export default {
       type: String,
       required: true
     }
+  },
+  data() {
+    return {
+      showPreview: false
+    }
+  },
+  methods: {
+    mouseOver() {
+      this.showPreview = true
+    },
+    mouseLeave() {
+      this.showPreview = false
+    },
+    brightnessImg() {
+      if (this.showPreview) {
+        return 'filter:brightness(0.3)'
+      } else {
+        return 'filter:brightness(1)'
+      }
+    },
+    colorText() {
+      if (this.showPreview) {
+        return 'color:#00dc81'
+      } else {
+        return 'color:transparent'
+      }
+    }
   }
 }
 </script>
@@ -52,14 +84,19 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  /* filter: blur(5px); */
+  transition: all 0.4s;
 }
 
 .post-title {
   position: absolute;
   text-transform: uppercase;
-  top: 38%;
-  left: 26%;
+  bottom: 0;
+  left: 0;
+  background-color: #011e26;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  line-height: 50px;
 }
 
 a {
@@ -88,5 +125,12 @@ a {
 .post-content {
   padding: 10px;
   text-align: center;
+  position: absolute;
+  top: 30%;
+}
+
+.preview-text {
+  transition: all 0.4s;
+  color: #00dc81;
 }
 </style>

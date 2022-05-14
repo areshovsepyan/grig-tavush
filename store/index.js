@@ -1,10 +1,14 @@
 export const state = () => ({
   data: {},
+  title: 'HAXARCIIN VANK'
 })
 
 export const getters = {
   getLandingPageData(state) {
     return state.data
+  },
+  getSinglePageTitle(state) {
+    return state.title
   }
 }
 

@@ -76,7 +76,8 @@ export default {
 .nav-item a {
   text-decoration: none;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
 
 .nav-item a:hover,
