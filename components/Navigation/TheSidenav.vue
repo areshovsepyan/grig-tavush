@@ -3,6 +3,7 @@
     <div v-if="show" class="sidenav-backdrop" @click="$emit('close')"></div>
     <transition name="slide-side">
       <div v-if="show" class="sidenav">
+        <SearchBar />
         <ul class="nav-list" @click="$emit('close')">
           <li class="nav-item">
             <nuxt-link to="/contact-us">Հետադարձ Կապ</nuxt-link>
@@ -15,8 +16,12 @@
 </template>
 
 <script>
+import SearchBar from '@/components/Shared/SearchBar.vue'
 export default {
   name: 'TheSidenav',
+  components: {
+    SearchBar
+  },
   props: {
     show: {
       type: Boolean,
@@ -64,6 +69,7 @@ export default {
 }
 
 .nav-list {
+  margin-top: 2.5rem !important;
   list-style: none;
   padding: 0;
   margin: 0;
