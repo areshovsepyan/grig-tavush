@@ -2,7 +2,7 @@
   <div class="header-container">
     <header class="the-header">
       <TheSideNavToggle @toggle="$emit('sidenavToggle')" />
-      <div @click="toTop" class="logo">
+      <div @click="toHome" class="logo">
         <img class="logo-icon" src="/favicon.ico" alt="" />
         <nuxt-link to="/">Գեղեցիկ Տավուշ</nuxt-link>
       </div>
@@ -26,7 +26,7 @@
 
 <script>
 import TheSideNavToggle from '@/components/Navigation/TheSideNavToggle'
-import SearchBar from '@/components/Shared/SearchBar.vue'
+import SearchBar from '@/components/SearchBar.vue'
 
 export default {
   name: 'TheHeader',
@@ -35,12 +35,8 @@ export default {
     SearchBar
   },
   methods: {
-    toTop() {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-      })
+    toHome() {
+      this.$router.push('/')
     }
   }
 }

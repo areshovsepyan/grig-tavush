@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import SearchBar from '@/components/Shared/SearchBar.vue'
+import SearchBar from '@/components/SearchBar.vue'
 export default {
   name: 'TheSidenav',
   components: {

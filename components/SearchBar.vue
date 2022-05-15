@@ -16,9 +16,25 @@
       type="text"
       class="input-search"
       placeholder=" Որոնել..."
+      v-model="searchInput"
     />
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      searchInput: ''
+    }
+  },
+  watch: {
+    searchInput(value) {
+      this.$store.commit('FILTER_POST_DATA', value)
+    }
+  }
+}
+</script>
 
 <style scoped>
 .search-box {

@@ -2,7 +2,7 @@
   <div class="home-page">
     <PostList @addNewPost="toggleNewPostModal" />
     <NewPostAdd
-      :mainData="getLandingPageData"
+      :mainData="getFilteredData"
       :show="displayNewPostModal"
       @close="displayNewPostModal = false"
     />
@@ -20,7 +20,7 @@ export default {
     NewPostAdd
   },
   computed: {
-    ...mapGetters(['getLandingPageData'])
+    ...mapGetters(['getFilteredData'])
   },
   async fetch({ store }) {
     if (store.data === undefined) {

@@ -10,7 +10,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters({ allPosts: 'getLandingPageData' }),
+    ...mapGetters({ allPosts: 'getFilteredData' }),
     singlePostID() {
       return this.$route.params.id - 1
     }

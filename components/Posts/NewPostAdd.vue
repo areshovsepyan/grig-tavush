@@ -69,17 +69,18 @@ export default {
         this.newPostData.data.content.details &&
         this.newPostData.data.content.history
       ) {
-        this.newPostData.previewText =
-          this.newPostData.data.content.details.slice(0, 70)
+        this.newPostData.previewText = this.newPostData.data.content.details
+          .slice(0, 70)
+          .trim()
         this.newPostData.id = ID
 
-        // this.mainData.posts.push(this.newPostData)
         this.$store.commit('PUT_NEW_POST_DATA', this.newPostData)
 
         await this.$store.dispatch('postNewData', this.mainData)
         await this.$store.dispatch('fetchLandingPageData')
         this.initData()
         this.$emit('close')
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
       }
       return
     },

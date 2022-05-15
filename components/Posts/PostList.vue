@@ -2,7 +2,7 @@
   <section class="post-list">
     <PostAdd @toggle="$emit('addNewPost')" />
     <PostPreview
-      v-for="post in getLandingPageData.posts"
+      v-for="post in getFilteredData.posts"
       :key="post.id"
       :id="post.id"
       :thumbnail="post.thumbnail"
@@ -24,7 +24,7 @@ export default {
     PostAdd
   },
   computed: {
-    ...mapGetters(['getLandingPageData'])
+    ...mapGetters(['getFilteredData'])
   }
 }
 </script>
