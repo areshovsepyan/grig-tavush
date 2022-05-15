@@ -39,13 +39,17 @@ export default {
     show: {
       type: Boolean,
       required: true
+    },
+    mainData: {
+      type: Object,
+      requires: true
     }
   },
   data() {
     return {
       newPostData: {
         id: null,
-        thumbnail: '',
+        thumbnail: 'no-image',
         previewText: '',
         title: '',
         data: {
@@ -58,7 +62,8 @@ export default {
     }
   },
   methods: {
-    submitNewPost() {
+    async submitNewPost() {
+      const ID = this.mainData.posts[this.mainData.posts.length - 1].id + 1
       if (
         this.newPostData.title &&
         this.newPostData.data.content.details &&
@@ -66,11 +71,13 @@ export default {
       ) {
         this.newPostData.previewText =
           this.newPostData.data.content.details.slice(0, 70)
-        this.newPostData.id =
-          Math.floor(Math.random() * (Math.floor(90) - Math.ceil(9) + 1)) +
-          Math.ceil(9)
-        console.log(this.newPostData)
+        this.newPostData.id = ID
 
+        // this.mainData.posts.push(this.newPostData)
+        this.$store.commit('PUT_NEW_POST_DATA', this.newPostData)
+
+        await this.$store.dispatch('postNewData', this.mainData)
+        await this.$store.dispatch('fetchLandingPageData')
         this.$emit('close')
       }
       return
