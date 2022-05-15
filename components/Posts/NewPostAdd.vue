@@ -78,9 +78,17 @@ export default {
 
         await this.$store.dispatch('postNewData', this.mainData)
         await this.$store.dispatch('fetchLandingPageData')
+        this.initData()
         this.$emit('close')
       }
       return
+    },
+    initData() {
+      this.newPostData.id = null
+      this.newPostData.title = ''
+      this.newPostData.previewText = ''
+      this.newPostData.data.content.details = ''
+      this.newPostData.data.content.history = ''
     }
   }
 }
