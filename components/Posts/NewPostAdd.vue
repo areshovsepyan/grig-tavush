@@ -63,33 +63,34 @@ export default {
   },
   methods: {
     async submitNewPost() {
-      const ID = this.mainData.posts[this.mainData.posts.length - 1].id + 1
       if (
-        this.newPostData.title &&
-        this.newPostData.data.content.details &&
-        this.newPostData.data.content.history
+        !this.newPostData.title ||
+        !this.newPostData.data.content.details ||
+        !this.newPostData.data.content.history
       ) {
-        this.newPostData.previewText = this.newPostData.data.content.details
-          .slice(0, 70)
-          .trim()
-        this.newPostData.id = ID
-
-        this.$store.commit('PUT_NEW_POST_DATA', this.newPostData)
-
-        await this.$store.dispatch('postNewData', this.mainData)
-        await this.$store.dispatch('fetchLandingPageData')
-        this.initData()
-        this.$emit('close')
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+        return
       }
-      return
+
+      this.newPostData.id =
+        this.mainData.posts[this.mainData.posts.length - 1].id + 1
+      this.newPostData.previewText = this.newPostData.data.content.details
+        .slice(0, 40)
+        .trim()
+
+      this.$store.commit('PUT_NEW_POST_DATA', this.newPostData)
+      await this.$store.dispatch('postNewData', this.mainData)
+      await this.$store.dispatch('fetchLandingPageData')
+      this.closeUp()
     },
-    initData() {
+    closeUp() {
       this.newPostData.id = null
       this.newPostData.title = ''
       this.newPostData.previewText = ''
       this.newPostData.data.content.details = ''
       this.newPostData.data.content.history = ''
+
+      this.$emit('close')
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
   }
 }

@@ -2,12 +2,12 @@
   <section class="post-list">
     <PostAdd @toggle="$emit('addNewPost')" />
     <PostPreview
-      v-for="post in getFilteredData.posts"
-      :key="post.id"
-      :id="post.id"
-      :thumbnail="post.thumbnail"
-      :title="post.title"
-      :previewText="post.previewText"
+      v-for="{ id, thumbnail, title, previewText } in getFilteredData.posts"
+      :key="id"
+      :id="id"
+      :thumbnail="thumbnail"
+      :title="title"
+      :previewText="previewText"
     />
   </section>
 </template>
