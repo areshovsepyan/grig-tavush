@@ -11,7 +11,7 @@
           <h4><span>#</span> Ծագումաբանություն</h4>
           <textarea
             name="details"
-            cols="30"
+            cols="15"
             rows="10"
             v-model="newPostData.data.content.details"
           ></textarea>
@@ -20,10 +20,14 @@
           <h4><span>#</span> Պատմություն</h4>
           <textarea
             name="history"
-            cols="30"
+            cols="15"
             rows="10"
             v-model="newPostData.data.content.history"
           ></textarea>
+        </div>
+        <div class="post-thumbnail">
+          <h4><span>#</span> Ավելացնել նկարներ</h4>
+          <input type="file" @change="onFileSelected" multiple />
         </div>
         <button class="add-post" @click="submitNewPost">Ավելացնել</button>
       </div>
@@ -33,6 +37,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'AddNewPost',
   props: {
@@ -62,6 +68,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['setSelectedFilesArray']),
+    onFileSelected(event) {
+      this.setSelectedFilesArray(event.target.files)
+    },
     async submitNewPost() {
       if (
         !this.newPostData.title ||
@@ -131,7 +141,8 @@ export default {
 }
 .post-name,
 .post-details,
-.post-history {
+.post-history,
+.post-thumbnail {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -148,9 +159,37 @@ input {
   border-radius: 7px;
 }
 
+.post-thumbnail input {
+  height: 36px;
+}
+
+input[type='file']::file-selector-button {
+  border: 1px solid #a3a6a5;
+  margin: 0.5rem;
+  border-radius: 6px;
+  background-color: transparent;
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+
+  /* border: 2px solid #6c5ce7;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  background-color: #a29bfe;
+  transition: 1s; */
+  cursor: pointer;
+}
+
+input[type='file']::file-selector-button:hover,
+input[type='file']::file-selector-button:active {
+  color: #00dc81;
+  opacity: 1;
+}
+
 textarea {
   width: 500px;
-  height: 200px;
+  height: 150px;
   margin: 1rem auto 2rem auto;
   resize: none;
   background-color: rgb(3 42 53);
