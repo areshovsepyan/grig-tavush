@@ -55,7 +55,8 @@ export default {
           database: true
         }
       }
-    ]
+    ],
+    'nuxt-leaflet'
   ],
 
   // Axios

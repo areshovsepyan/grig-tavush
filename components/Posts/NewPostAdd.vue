@@ -68,13 +68,12 @@ export default {
     }
   },
   created() {
-    console.log(this.$fireModule.storage)
+    // console.log(this.$fireModule.storage)
   },
   methods: {
     ...mapActions(['setSelectedFilesArray']),
     onFileSelected(event) {
       this.setSelectedFilesArray(event.target.files)
-      console.log(this.$store.state.selectedFilesArray)
     },
     async submitNewPost() {
       if (
@@ -251,7 +250,7 @@ h4 {
   transform: translateX(-100%);
 }
 
-@media (max-width: 790px) {
+@media (max-width: 800px) {
   .new-post {
     width: 80%;
   }

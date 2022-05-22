@@ -9,6 +9,7 @@
             <nuxt-link to="/contact-us">Հետադարձ Կապ</nuxt-link>
           </li>
           <li class="nav-item"><nuxt-link to="/about">Մեր Մասին</nuxt-link></li>
+          <li class="nav-item"><nuxt-link to="/map">Քարտեզ</nuxt-link></li>
         </ul>
       </div>
     </transition>

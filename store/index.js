@@ -2,19 +2,47 @@ export const state = () => ({
   URL: 'https://tavush-chobanyan-default-rtdb.firebaseio.com/tavush.json',
   data: {},
   filteredData: {},
-  selectedFilesArray: []
+  selectedFilesArray: [],
+  map: {
+    zoom: 11,
+    initCoord: [40.9, 45],
+    mapURL: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+    options: {
+      zoomControl: false,
+      pan: {
+        duration: 10
+      }
+    }
+  },
+  coords: []
 })
 
 export const getters = {
+  getPostsCoords(state) {
+    return state.coords
+  },
   getLandingPageData(state) {
     return state.data
   },
   getFilteredData(state) {
     return state.filteredData
+  },
+  getMapOptions(state) {
+    return state.map
   }
 }
 
 export const mutations = {
+  SET_VIEW_COORDS(state, data) {
+    state.map.initCoord = data
+  },
+  SET_POST_COORDS(state, data) {
+    data.forEach(post => {
+      if (post.latlng) {
+        state.coords.push(post.latlng)
+      }
+    })
+  },
   SET_SELECTED_FILES_ARRAY(state, data) {
     data.forEach(element => {
       state.selectedFilesArray.push(element)
@@ -50,6 +78,7 @@ export const actions = {
       const data = await response.json()
 
       commit('SET_LANDING_PAGE_DATA', data)
+      commit('SET_POST_COORDS', data.posts)
     } catch (e) {
       //
     }

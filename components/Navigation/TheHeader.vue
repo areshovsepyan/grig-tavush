@@ -16,6 +16,9 @@
             <nuxt-link to="/about">Մեր Մասին</nuxt-link>
           </li>
           <li class="nav-item">
+            <nuxt-link to="/map">Քարտեզ</nuxt-link>
+          </li>
+          <li class="nav-item">
             <SearchBar />
           </li>
         </ul>
@@ -102,7 +105,7 @@ export default {
   border: 1px solid #ccc;
 }
 
-@media (min-width: 790px) {
+@media (min-width: 830px) {
   .navigation-items {
     display: block;
   }

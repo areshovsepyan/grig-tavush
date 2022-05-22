@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 
-@media (min-width: 790px) {
+@media (min-width: 830px) {
   .drawer-toggle {
     display: none;
   }
