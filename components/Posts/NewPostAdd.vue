@@ -67,10 +67,14 @@ export default {
       }
     }
   },
+  created() {
+    console.log(this.$fireModule.storage)
+  },
   methods: {
     ...mapActions(['setSelectedFilesArray']),
     onFileSelected(event) {
       this.setSelectedFilesArray(event.target.files)
+      console.log(this.$store.state.selectedFilesArray)
     },
     async submitNewPost() {
       if (

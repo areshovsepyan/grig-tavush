@@ -6,21 +6,21 @@ export default {
   head: {
     title: 'Գեղեցիկ Տավուշ',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
+      { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Open+Sans',
-      },
-    ],
+        href: 'https://fonts.googleapis.com/css2?family=Open+Sans'
+      }
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -36,7 +36,27 @@ export default {
   buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios'],
+  modules: [
+    '@nuxtjs/axios',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyCns35Vss3U771148V308YTAs26dNpwJoY',
+          authDomain: 'tavush-28830.firebaseapp.com',
+          projectId: 'tavush-28830',
+          storageBucket: 'tavush-28830.appspot.com',
+          messagingSenderId: '594884786173',
+          appId: '1:594884786173:web:209469de975a288b890b94'
+        },
+        services: {
+          firestore: true,
+          storage: true,
+          database: true
+        }
+      }
+    ]
+  ],
 
   // Axios
   axios: {
@@ -44,5 +64,5 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
-};
+  build: {}
+}
