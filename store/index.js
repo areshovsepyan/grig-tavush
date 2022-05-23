@@ -1,8 +1,11 @@
+// import getters from './getters'
+// import mutations from './mutations'
+// import actions from './actions'
+
 export const state = () => ({
   URL: 'https://tavush-chobanyan-default-rtdb.firebaseio.com/tavush.json',
   data: {},
   filteredData: {},
-  selectedFilesArray: [],
   map: {
     zoom: 11,
     initCoord: [40.9, 45],
@@ -69,9 +72,6 @@ export const mutations = {
 }
 
 export const actions = {
-  setSelectedFilesArray({ commit }, data) {
-    commit('SET_SELECTED_FILES_ARRAY', data)
-  },
   async fetchLandingPageData({ state, commit }) {
     try {
       const response = await fetch(state.URL)

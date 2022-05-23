@@ -26,8 +26,12 @@
           ></textarea>
         </div>
         <div class="post-thumbnail">
+          <h4><span>#</span> Ավելացնել գլխավոր նկար</h4>
+          <input type="file" @change="onFileSelect" />
+        </div>
+        <div class="post-thumbnail">
           <h4><span>#</span> Ավելացնել նկարներ</h4>
-          <input type="file" @change="onFileSelected" multiple />
+          <input type="file" @change="onFilesSelect" multiple />
         </div>
         <button class="add-post" @click="submitNewPost">Ավելացնել</button>
       </div>
@@ -55,10 +59,11 @@ export default {
     return {
       newPostData: {
         id: null,
-        thumbnail: 'no-image',
+        thumbnail: ``,
         previewText: '',
         title: '',
         data: {
+          thumbnails: [],
           content: {
             details: '',
             history: ''
@@ -67,17 +72,40 @@ export default {
       }
     }
   },
-  created() {
-    // console.log(this.$fireModule.storage)
-  },
+
   methods: {
     ...mapActions(['setSelectedFilesArray']),
-    onFileSelected(event) {
-      this.setSelectedFilesArray(event.target.files)
+
+    async onFileSelect(event) {
+      const toBase64 = await this.toBase64(event.target.files[0])
+      this.newPostData.thumbnail = toBase64
+
+      console.log(this.newPostData.thumbnail)
     },
+
+    async onFilesSelect(event) {
+      for (const file of event.target.files) {
+        const toBase64 = await this.toBase64(file)
+        this.newPostData.data.thumbnails.push(toBase64)
+      }
+
+      console.log(this.newPostData.data.thumbnails)
+    },
+
+    toBase64(value) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(value)
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = error => reject(error)
+      })
+    },
+
     async submitNewPost() {
       if (
         !this.newPostData.title ||
+        !this.newPostData.thumbnail ||
+        !this.newPostData.data.thumbnails ||
         !this.newPostData.data.content.details ||
         !this.newPostData.data.content.history
       ) {
@@ -89,7 +117,6 @@ export default {
       this.newPostData.previewText = this.newPostData.data.content.details
         .slice(0, 40)
         .trim()
-
       this.$store.commit('PUT_NEW_POST_DATA', this.newPostData)
       await this.$store.dispatch('postNewData', this.mainData)
       await this.$store.dispatch('fetchLandingPageData')
@@ -98,9 +125,11 @@ export default {
     closeUp() {
       this.newPostData.id = null
       this.newPostData.title = ''
+      this.newPostData.thumbnail = ''
       this.newPostData.previewText = ''
       this.newPostData.data.content.details = ''
       this.newPostData.data.content.history = ''
+      this.newPostData.data.thumbnails.length = 0
 
       this.$emit('close')
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
@@ -192,7 +221,7 @@ input[type='file']::file-selector-button:active {
 
 textarea {
   width: 500px;
-  height: 150px;
+  height: 100px;
   margin: 1rem auto 2rem auto;
   resize: none;
   background-color: rgb(3 42 53);
