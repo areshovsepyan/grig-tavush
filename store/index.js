@@ -3,7 +3,7 @@ export const state = () => ({
   data: {},
   filteredData: {},
   map: {
-    zoom: 11,
+    zoom: 10,
     initCoord: [40.9, 45],
     mapURL: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
     options: {
@@ -13,10 +13,15 @@ export const state = () => ({
       }
     }
   },
-  coords: []
+  coords: [],
+  singlePostId: null,
+  loading: false
 })
 
 export const getters = {
+  getLoading(state) {
+    return state.loading
+  },
   getPostsCoords(state) {
     return state.coords
   },
@@ -28,10 +33,26 @@ export const getters = {
   },
   getMapOptions(state) {
     return state.map
+  },
+  getActiveId(state) {
+    return state.singlePostId
   }
 }
 
 export const mutations = {
+  SET_SINGLE_ID(state, data) {
+    state.singlePostId = data
+  },
+  SET_VIEW_SINGLE_POST(state, data) {
+    state.map.zoom = 14
+    state.map.initCoord = data.coords
+    state.singlePostId = data.id
+  },
+  RESET_INIT_COORDS(state) {
+    state.map.zoom = 10
+    state.map.initCoord = [40.9, 45]
+    state.singlePostId = null
+  },
   SET_VIEW_COORDS(state, data) {
     state.map.initCoord = data
   },
@@ -64,6 +85,9 @@ export const mutations = {
     })
 
     state.filteredData = newData
+  },
+  START_LOADING(state, data) {
+    state.loading = data
   }
 }
 

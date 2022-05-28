@@ -2,8 +2,9 @@
   <div class="sidebar-wrapper">
     <div class="post-list">
       <a
-        @click="getPostLocation(latlng)"
+        @click="getPostLocation(latlng, id)"
         class="post-list-item"
+        :class="{ active: activeID === id }"
         v-for="{ id, title, latlng } in data.posts"
         :key="id"
       >
@@ -21,12 +22,17 @@ export default {
   },
   methods: {
     ...mapMutations({ setView: 'SET_VIEW_COORDS' }),
-    getPostLocation(coords) {
+    getPostLocation(coords, id) {
       this.setView(coords)
+      this.$store.commit('SET_SINGLE_ID', id)
+
     }
   },
   computed: {
-    ...mapGetters({ data: 'getLandingPageData' })
+    ...mapGetters({ data: 'getLandingPageData', singleID: 'getActiveId' }),
+    activeID() {
+      return this.singleID
+    }
   }
 }
 </script>
@@ -66,6 +72,10 @@ span {
 
 a:hover,
 a:active {
+  opacity: 1;
+  color: #00dc81;
+}
+.active {
   opacity: 1;
   color: #00dc81;
 }

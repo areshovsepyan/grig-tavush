@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'AddNewPost',
@@ -55,9 +55,9 @@ export default {
       requires: true
     }
   },
+
   data() {
     return {
-      dataReady: false,
       newPostData: {
         id: null,
         latlng: [],
@@ -96,11 +96,12 @@ export default {
 
     async onFilesSelect(event) {
       try {
+        this.$store.commit('START_LOADING', true)
         for (const file of event.target.files) {
           const imageURLPath = await this.uploadToFireStore(file, file.name)
           this.newPostData.data.thumbnails.push(imageURLPath)
         }
-        this.dataReady = true
+        this.$store.commit('START_LOADING', false)
       } catch (e) {
         console.log(e)
       }
@@ -117,8 +118,7 @@ export default {
         !this.newPostData.thumbnail ||
         !this.newPostData.data.thumbnails ||
         !this.newPostData.data.content.details ||
-        !this.newPostData.data.content.history ||
-        !this.dataReady
+        !this.newPostData.data.content.history
       ) {
         return
       }
@@ -133,8 +133,8 @@ export default {
       await this.$store.dispatch('fetchLandingPageData')
       this.closeUp()
     },
+
     closeUp() {
-      this.dataReady = false
       this.newPostData.id = null
       this.newPostData.title = ''
       this.newPostData.thumbnail = ''

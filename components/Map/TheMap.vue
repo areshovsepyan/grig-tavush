@@ -7,7 +7,6 @@
           v-for="(latLng, index) in coords"
           :key="index"
           :lat-lng="latLng"
-          :title="`title`"
         ></l-marker>
       </l-map>
     </client-only>
@@ -22,6 +21,9 @@ export default {
   },
   computed: {
     ...mapGetters({ map: 'getMapOptions', coords: 'getPostsCoords' })
+  },
+  beforeDestroy() {
+    this.$store.commit('RESET_INIT_COORDS')
   }
 }
 </script>

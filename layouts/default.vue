@@ -1,5 +1,6 @@
 <template>
   <div>
+    <LoadingBar />
     <TheHeader @sidenavToggle="toggleSidenav" />
     <TheSidenav :show="displaySidenav" @close="displaySidenav = false" />
     <nuxt />
@@ -10,12 +11,15 @@
 <script>
 import TheHeader from '@/components/Navigation/TheHeader'
 import TheSidenav from '@/components/Navigation/TheSidenav'
-import TheFooter from '../components/Navigation/TheFooter.vue'
+import TheFooter from '@/components/Navigation/TheFooter.vue'
+import LoadingBar from '@/components/Shared/LoadingBar.vue'
+
 export default {
   components: {
     TheHeader,
     TheSidenav,
-    TheFooter
+    TheFooter,
+    LoadingBar
   },
   data() {
     return {
@@ -30,3 +34,4 @@ export default {
 }
 </script>
 
+<style></style>

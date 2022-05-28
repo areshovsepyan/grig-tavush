@@ -18,7 +18,7 @@
       </VueSlickCarousel>
     </section>
     <section class="post actions">
-      <nuxt-link class="open-map-button" to="/map">Քարտեզ</nuxt-link>
+      <button class="open-map-button" @click="toSingleMap">Քարտեզ</button>
     </section>
     <section class="post">
       <div class="post-details">
@@ -71,6 +71,10 @@ export default {
   methods: {
     sliderArrow() {
       this.settings.arrows = window.innerWidth <= 1024 ? false : true
+    },
+    toSingleMap() {
+      this.$store.commit('SET_VIEW_SINGLE_POST', {coords: this.postData.latlng, id: this.postData.id})
+      this.$router.push('/map')
     }
   },
   mounted() {
