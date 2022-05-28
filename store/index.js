@@ -1,7 +1,3 @@
-// import getters from './getters'
-// import mutations from './mutations'
-// import actions from './actions'
-
 export const state = () => ({
   URL: 'https://tavush-chobanyan-default-rtdb.firebaseio.com/tavush.json',
   data: {},
@@ -72,6 +68,20 @@ export const mutations = {
 }
 
 export const actions = {
+  async getNewCoordinates({ state, commit }, payload) {
+    try {
+      const apiKey = '20767a320457ecc9715cbb5c02f38e7d'
+      const response = await fetch(
+        `http://api.positionstack.com/v1/forward?access_key=${apiKey}&query=${payload}`
+      )
+      const data = await response.json()
+      const lat = data.data[0].latitude
+      const long = data.data[0].longitude
+      return [lat, long]
+    } catch (e) {
+      console.log(e)
+    }
+  },
   async fetchLandingPageData({ state, commit }) {
     try {
       const response = await fetch(state.URL)

@@ -4,30 +4,21 @@
     <section class="slider-component">
       <VueSlickCarousel v-bind="settings">
         <div class="slider-image">
-          <img
-            :src="require(`~/assets/images/posts/${postData.thumbnail}/1.jpeg`)"
-            alt=""
-          />
+          <img :src="postData.data.thumbnails[0]" alt="" />
         </div>
         <div class="slider-image">
-          <img
-            :src="require(`~/assets/images/posts/${postData.thumbnail}/2.jpeg`)"
-            alt=""
-          />
+          <img :src="postData.data.thumbnails[1]" alt="" />
         </div>
         <div class="slider-image">
-          <img
-            :src="require(`~/assets/images/posts/${postData.thumbnail}/3.jpeg`)"
-            alt=""
-          />
+          <img :src="postData.data.thumbnails[2]" alt="" />
         </div>
         <div class="slider-image">
-          <img
-            :src="require(`~/assets/images/posts/${postData.thumbnail}/4.jpeg`)"
-            alt=""
-          />
+          <img :src="postData.data.thumbnails[3]" alt="" />
         </div>
       </VueSlickCarousel>
+    </section>
+    <section class="post actions">
+      <nuxt-link class="open-map-button" to="/map">Քարտեզ</nuxt-link>
     </section>
     <section class="post">
       <div class="post-details">
@@ -69,8 +60,8 @@ export default {
       settings: {
         arrows: true,
         dots: true,
-        autoplay: false,
-        autoplaySpeed: 4000,
+        autoplay: true,
+        autoplaySpeed: 3000,
         speed: 1500,
         infinite: true,
         pauseOnFocus: true
@@ -103,6 +94,33 @@ export default {
 .post {
   width: 600px;
   margin: auto;
+}
+
+.post.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.open-map-button {
+  align-self: flex-end;
+  width: 80px;
+  height: 19px;
+  border: 1.7px solid #00dc81;
+  border-radius: 6px;
+  background-color: #032a35;
+  color: white;
+  font-size: 13px;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.8;
+  letter-spacing: 1px;
+  margin-right: 12px;
+  text-decoration: none;
+}
+.open-map-button:hover,
+.open-map-button:active {
+  color: #00dc81;
+  opacity: 1;
 }
 
 .slider-component {

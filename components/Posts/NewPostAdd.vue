@@ -57,8 +57,10 @@ export default {
   },
   data() {
     return {
+      dataReady: false,
       newPostData: {
         id: null,
+        latlng: [],
         thumbnail: ``,
         previewText: '',
         title: '',
@@ -77,28 +79,36 @@ export default {
     ...mapActions(['setSelectedFilesArray']),
 
     async onFileSelect(event) {
-      const toBase64 = await this.toBase64(event.target.files[0])
-      this.newPostData.thumbnail = toBase64
-
-      console.log(this.newPostData.thumbnail)
+      try {
+        this.newPostData.latlng = await this.$store.dispatch(
+          'getNewCoordinates',
+          this.newPostData.title
+        )
+        const imageURLPath = await this.uploadToFireStore(
+          event.target.files[0],
+          this.newPostData.title
+        )
+        this.newPostData.thumbnail = imageURLPath
+      } catch (e) {
+        console.log(e)
+      }
     },
 
     async onFilesSelect(event) {
-      for (const file of event.target.files) {
-        const toBase64 = await this.toBase64(file)
-        this.newPostData.data.thumbnails.push(toBase64)
+      try {
+        for (const file of event.target.files) {
+          const imageURLPath = await this.uploadToFireStore(file, file.name)
+          this.newPostData.data.thumbnails.push(imageURLPath)
+        }
+        this.dataReady = true
+      } catch (e) {
+        console.log(e)
       }
-
-      console.log(this.newPostData.data.thumbnails)
     },
 
-    toBase64(value) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(value)
-        reader.onload = () => resolve(reader.result)
-        reader.onerror = error => reject(error)
-      })
+    async uploadToFireStore(image, name) {
+      const snapshot = await this.$fire.storage.ref(name).put(image)
+      return await snapshot.ref.getDownloadURL()
     },
 
     async submitNewPost() {
@@ -107,7 +117,8 @@ export default {
         !this.newPostData.thumbnail ||
         !this.newPostData.data.thumbnails ||
         !this.newPostData.data.content.details ||
-        !this.newPostData.data.content.history
+        !this.newPostData.data.content.history ||
+        !this.dataReady
       ) {
         return
       }
@@ -123,6 +134,7 @@ export default {
       this.closeUp()
     },
     closeUp() {
+      this.dataReady = false
       this.newPostData.id = null
       this.newPostData.title = ''
       this.newPostData.thumbnail = ''

@@ -38,7 +38,6 @@
 <script>
 export default {
   name: 'PostAdd',
-
   data() {
     return {
       isHover: false

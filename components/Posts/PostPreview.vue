@@ -8,7 +8,7 @@
     <img
       class="post-image"
       :style="brightnessImg()"
-      :src="require(`~/assets/images/posts/${thumbnail}.jpeg`)"
+      :src="thumbnail"
     />
 
     <h1 class="post-title">{{ title }}</h1>
