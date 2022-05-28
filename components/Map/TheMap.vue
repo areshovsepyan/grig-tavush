@@ -1,13 +1,20 @@
 <template>
   <div class="map-wrapper">
     <client-only>
-      <l-map :zoom="map.zoom" :center="map.initCoord" :options="map.options">
+      <l-map
+        :zoom="map.zoom"
+        :center="map.initCoord"
+        :options="map.options"
+      >
         <l-tile-layer :url="map.mapURL"></l-tile-layer>
         <l-marker
-          v-for="(latLng, index) in coords"
+          v-for="(post, index) in coords"
+          :ref="`post${post[2]}`"
           :key="index"
-          :lat-lng="latLng"
-        ></l-marker>
+          :lat-lng="post[0]"
+        >
+          <l-popup :content="post[1]"></l-popup>
+        </l-marker>
       </l-map>
     </client-only>
   </div>
@@ -20,7 +27,23 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters({ map: 'getMapOptions', coords: 'getPostsCoords' })
+    ...mapGetters({
+      map: 'getMapOptions',
+      coords: 'getPostsCoords',
+      singleID: 'getActiveId'
+    })
+  },
+  mounted() {
+    setTimeout(() => {
+      if (this.singleID) {
+        this.$refs[`post${this.singleID}`][0].mapObject.openPopup()
+      }
+    }, 1000)
+  },
+  watch: {
+    singleID(value) {
+      this.$refs[`post${value}`][0].mapObject.openPopup()
+    }
   },
   beforeDestroy() {
     this.$store.commit('RESET_INIT_COORDS')

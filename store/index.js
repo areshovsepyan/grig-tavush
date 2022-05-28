@@ -59,7 +59,7 @@ export const mutations = {
   SET_POST_COORDS(state, data) {
     data.forEach(post => {
       if (post.latlng) {
-        state.coords.push(post.latlng)
+        state.coords.push([post.latlng, post.title, post.id])
       }
     })
   },

@@ -108,7 +108,7 @@ export default {
 .open-map-button {
   align-self: flex-end;
   width: 80px;
-  height: 19px;
+  height: 24px;
   border: 1.7px solid #00dc81;
   border-radius: 6px;
   background-color: #032a35;

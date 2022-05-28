@@ -25,7 +25,6 @@ export default {
     getPostLocation(coords, id) {
       this.setView(coords)
       this.$store.commit('SET_SINGLE_ID', id)
-
     }
   },
   computed: {
