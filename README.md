@@ -1,4 +1,4 @@
-# grig-tavush
+# my-tours
 
 ## Build Setup
 
